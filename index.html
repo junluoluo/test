@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登录</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" >   
+<meta content="yes" name="apple-mobile-web-app-capable">     
+<meta content="black" name="apple-mobile-web-app-status-bar-style">     
+<meta content="telephone=no" name="format-detection">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/login.css">
+<script src="js/jquery.min.js"></script>
+<script>
+	/*取设备宽度*/
+	(function(){
+		var changeRem = function () {
+			document.documentElement.style['font-size'] = document.documentElement.clientWidth / 10 + 'px'; 
+		};
+		changeRem();
+		var t;
+		window.addEventListener('resize' , function(){
+		    clearTimeout(t);
+		    t = setTimeout(changeRem, 300);
+		}, false);
+		window.addEventListener('pageshow' , function(e){
+		    if (e.persisted) {
+		        clearTimeout(t);
+		        t = setTimeout(changeRem, 300);
+		    }
+		}, false);
+
+	})();
+</script>
+</head>
+<body>
+<section >
+	<img src="images/bg.png" class="head_bg">
+	<form method="POST" action="">
+		<div class="login_main">
+			<div class="login_bar">
+				<div class="" data-id="1"><div>微信登录</div></div><div class="active" data-id="2"><div class="active">账号登录</div></div>
+			</div>
+			<div class="login_point f-hide"><span>!</span> 您没有绑定微信账号，请绑定登录</div>
+			<div class="zh_login">
+				<div class="zh_input f-hide cus_input">
+					<i class="icon_circle_1"></i>
+					<input type="text" placeholder="客户编号" value="39001">
+				</div>
+				<div class="zh_input">
+					<i class="icon_people_1"></i>
+					<input type="text" placeholder="手机号" value="17712345678">
+				</div>
+				<div class="zh_input">
+					<i class="icon_suo_1"></i>
+					<input type="text" placeholder="密码">
+				</div>
+				<input type="button" class="login_btn" value="登录">
+				<div class="clearfloat">
+					<div class="f-left" id="customerCode">指定客户编号</div>
+					<div class="f-right">忘记密码？</div>
+				</div>
+			</div>
+			<div class="wx_login f-hide">
+				<div class="wx_login_btn">
+					<img src="images/weixin.png">
+					<div>微信登录</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="overfly f-hide">
+		<div class="error">用户名或密码错误</div>
+	</div>
+</section>
+</body>
+<script type="text/javascript">
+	$(function(){
+		// 导航栏切换
+		$(".login_bar>div").click(function(){
+			if($(this).data().id == 1){
+				$(".zh_login").hide();
+				$(".wx_login").show();
+			}else{
+				$(".wx_login").hide();
+				$(".zh_login").show();
+				$(".login_btn").val("登录");
+			}
+			$(".login_point").hide();
+			$(this).addClass("active");
+			$(this).siblings().removeClass("active");
+			$(this).find("div").addClass("active");
+			$(this).siblings().find("div").removeClass("active");
+		})
+		// 微信登录
+		$(".wx_login_btn").click(function(){
+			var flag = false;//未绑定
+			if(!flag){
+				$(".wx_login").hide();
+				$(".login_point").show();
+				$(".zh_login").show();
+				$(".login_btn").val("绑定并登录");
+			}
+		})
+		// 指定客户编号
+		$("#customerCode").click(function(){
+			$(this).hide();
+			$(".cus_input").show();
+		})
+	})
+</script>
+</html>
